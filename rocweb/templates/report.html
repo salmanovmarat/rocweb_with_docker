@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}
+    Report
+{% endblock %}
+{% block content %}
+<style>
+    @font-face {
+        font-family: 'Roboto';
+        src: url("{% static 'rocveb/freesans/Roboto-Regular.ttf'%}");
+    }
+
+    body {
+        font-family: 'Roboto';
+    }
+
+    table {
+        border: 1px solid black;
+        text-align: center;
+        width: 100%;
+    }
+
+    th,
+    td {
+        height: 35px;
+        font-size: 13px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    #diametr {
+        font-size: 13px;
+    }
+</style>
+<div>
+    {% if pubhist == "Daily" %}
+
+    {% for date, store2 in store.qovsaqlar.items %}
+    <p align='center' style='font-weight: bold;'>{{store2.0.2}} ÜZRƏ GÜNLÜK QAZ SƏRFİNİN HESABATI</p>
+    <p align='center' style='font-weight: bold;'>{{store2.0.5}}</p>
+    <time style='font-weight:bold;'>{{date}}</time>
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>Saygacin adi</th>
+                <th>Xususi cheki(kq/m3)</th>
+                <th>Tezyiqler ferqi(kPa)</th>
+                <th>Static tezyiq</th>
+                <th>Temperatur(C)</th>
+                <th>Cari serf</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sto in store2 %}
+            <tr>
+                <td>{{sto.8}}</td>
+                <td>{{sto.21}}</td>
+                <td>{{sto.20}}</td>
+                <td>{{sto.19}}</td>
+                <td>{{sto.20}}</td>
+                <td>{{sto.22}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+    {% elif pubhist == "Hour" %}
+    {% for hour, sto in store.items %}
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>Tarix</th>
+                <th>Xususi cheki(kq/m3)</th>
+                <th>Tezyiqler ferqi(kPa)</th>
+                <th>Static tezyiq</th>
+                <th>Temperatur(C)</th>
+                <th>Cari serf</th>
+            </tr>
+        </thead>
+        <tbody>
+            <p align='center' style='font-weight:bold;'>SAATLIQ QAZ SƏRFİNİN HESABATI</p>
+            <p align='center' style='font-weight:bold;'>{{sto.5.5}}
+                <p align='center' style='font-weight:bold;'>{{sto.5.8}}
+                    <div id='diametr'>
+                        <pre>D = {{sto.5.9}}   d = {{sto.5.10}}</pre>
+                    </div>
+                    {% for st in sto %}
+                    <tr>
+                        <td>{{st.15 |date:"d.m.y H:i"}}</td>
+                        <td>{{st.21}}</td>
+                        <td>{{st.20}}</td>
+                        <td>{{st.19}}</td>
+                        <td>{{st.20}}</td>
+                        <td>{{st.22}}</td>
+                    </tr>
+                    {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+     ACCEPT_EULA: Y 
+     SA_PASSWORD: marat123456
+    ports:
+     - "1433:1433"
+    volumes:
+     - ./backups:/db/backups/
+    restart: always

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}
+	Login
+{% endblock %}
+{% block content %}
+<div class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100">
+			<form class="login100-form validate-form" method="POST">
+				{% csrf_token %}
+				<span class="login100-form-logo">
+					<img src="{% static 'socar/images/socar.png'%}" width='80' height='80' alt="">
+				</span>
+				<span class="login100-form-title p-b-34 p-t-27">
+					Rocweb
+				</span>
+				<div class='form-group'>
+					<select class='form-control' name="birlik">
+						{% for bir in birlik %}
+						<option value="{{bir.0}}"
+							{% if request.POST.birlik == bir.0|stringformat:"i" %}selected{% endif %}>{{bir.1}}
+						</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="wrap-input100 validate-input" data-validate="Şifrəni daxil edin">
+					<input class="input100" type="password" name="password" placeholder="Şifrə">
+					<span class="focus-input100" data-placeholder="&#xf191;"></span>
+				</div>
+				<div align='center' id='message'>
+					{% for message in messages %}
+					{{message}}
+					{% endfor %}
+				</div>
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn">
+						Daxil olun
+					</button>
+				</div>
+				<div class="text-center p-t-90">
+					<a class="txt1" href="#">
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

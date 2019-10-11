@@ -1,0 +1,29 @@
+table, td, th {
+    border: 1px solid black !important;
+  }
+
+td,th {
+    text-align: center !important;
+}
+
+.input-group-text{
+  width:137px;
+}
+
+
+.qutu {
+  width: 110px;
+  height:60px;
+  text-align: center;
+  line-height: 27px;
+  border:1px solid rgba(0, 0, 0, 0.329);
+  position: absolute !important;
+  right: 0;
+  margin-right: 30px;
+
+}
+
+#message {
+  color:white;
+  
+}

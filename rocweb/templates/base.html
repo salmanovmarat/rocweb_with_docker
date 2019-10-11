@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>
+  {% block title%}
+  {% endblock%}
+ </title>
+  <script src="{% static 'socar/vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'rockveb/js/ajax.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'socar/vendor/bootstrap/css/bootstrap.min.css'%}">
+  <link rel="stylesheet" type="text/css" href="{% static 'socar/fonts/iconic/css/material-design-iconic-font.min.css'%}">   
+  <link rel="stylesheet" type="text/css" href="{% static 'socar/fonts/font-awesome-4.7.0/css/font-awesome.css'%}">
+  <link rel="stylesheet" href="{% static 'rockveb/css/stylee.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'socar/css/util.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'socar/css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'rockveb/css/stylee.css' %}">
+  <link rel="stylesheet" href="{% static 'rockveb/css/bootstrap4.css' %}">
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  {% block content %}
+  {% endblock%}
+  <script src="{% static 'rockveb/js/bootstrap4.js' %}"></script>
+  <script src="{% static 'socar/js/main.js'%}"></script>
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}
+    Rocweb
+{% endblock %}
+{% block content %}
+
+<form action="" method='POST'>
+    {% csrf_token %}
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#"><img src="{% static 'rockveb/image/logo.jpg' %}" width='100' height='100'></a>
+        <div class='qutu'>
+            <input type="radio" name="gender" value="Hour" id="gender_Hour"
+                {% if request.POST.gender == "Hour" %}checked{% endif %}><label for="gender_Hour">Saatlıq
+                arxiv</label><br>
+            <input type="radio" name="gender" value="Daily" id="gender_Daily"
+                {% if request.POST.gender == "Daily" %}checked{% endif %}><label for="gender_Daily">Günlük
+                arxiv</label><br>
+        </div>
+    </nav>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-4 mb-3'>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Muəssisənin adi</span>
+                    </div>
+                    <select name='company' class="form-control" id='company'>
+                        <option value={{0}}>Hamisi</option>
+                        {% for company in companies %}
+                        <option value="{{company.0}}"
+                            {% if request.POST.company == company.0|stringformat:"i" %}selected{% endif %}>{{company.1}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class='input-group'>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Başlanğıc tarix</span>
+                        <input id="datepicker" name='time1' value="{{request.POST.time1}}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-4 mb-3'>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Qovşaqlarin adi</span>
+                    </div>
+                    <select class="form-control" id="qovshaq" name='mvsname'>
+                        <option value={{0}}>Hamisi</option>
+                        {% for qov in qovshaq %}
+                        <option value='{{qov.0}}'
+                            {% if request.POST.mvsname == qov.0|stringformat:"i" %}selected{% endif %}>{{qov.1}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class='col-md-4'>
+                <div class='input-group'>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Son tarix</span>
+                        <input id="datepicker1" name='time2' value="{{request.POST.time2}}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-4 mb-3'>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Formalar</span>
+                    </div>
+                    <select class="form-control" name="pubhist">
+                        {% for i in formalar %}
+                        <option value="{{i.0}}"
+                            {% if request.POST.pubhist == i.0|stringformat:"i" %}selected{% endif %}>{{i.1}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class='col-md-4 mb-0'>
+                <select class='form-control' name="file_format">
+                    {% for i in forms %}
+                    <option value="{{i.0}}"
+                        {% if request.POST.file_format == i.0|stringformat:"i" %}selected{% endif %}>{{i.1}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div align='center' class='mb-3'>
+            <button class='btn btn-primary' id='tableshow'>Bax</button>
+            <button name='pdf' class='btn btn-primary'>Yüklə</button>
+            <a href="{% url 'login' %}"><button type='button' class='btn btn-primary'>Çıx</button></a>
+        </div>
+</form>
+{% if pubhist == "Daily" %}
+
+{% for date, store2 in store.qovsaqlar.items %}
+<p align='center' style='font-weight:bold;'>{{store2.0.2}} ÜZRƏ GÜNLÜK QAZ SƏRFİNİN HESABATI</p>
+<p align='center' style='font-weight:bold;'>{{store2.0.5}}</p>
+<time style='font-weight:bold;'>{{date}}</time>
+<table class='table table-bordered'>
+    <thead>
+        <tr>
+            <th>Sayğacın adı</th>
+            <th>Xüsusi çəki(kq/m3)</th>
+            <th>Təzyiqlər fərqi(kPa)</th>
+            <th>Static təzyiq</th>
+            <th>Temperatur(C)</th>
+            <th>Cari sərf</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sto in store2 %}
+        <tr>
+            <td>{{sto.8}}</td>
+            <td>{{sto.21}}</td>
+            <td>{{sto.20}}</td>
+            <td>{{sto.19}}</td>
+            <td>{{sto.20}}</td>
+            <td>{{sto.22}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% elif pubhist == "Hour" %}
+{% for hour, sto in store.items %}
+
+<table class='table table-bordered'>
+    <thead>
+        <tr>
+            <th>Tarix</th>
+            <th>Xüsusi çəki(kq/m3)</th>
+            <th>Təzyiqlər fərqi(kPa)</th>
+            <th>Static təzyiq</th>
+            <th>Temperatur(C)</th>
+            <th>Cari sərf</th>
+        </tr>
+    </thead>
+    <tbody>
+        <p align='center' style='font-weight:bold;'>SAATLIQ QAZ SƏRFİNİN HESABATI</p>
+        <p align='center' style='font-weight:bold;'>{{sto.5.5}}
+            <p align='center' style='font-weight:bold;'>{{sto.5.8}}
+                <pre>D = {{sto.5.9}}         d = {{sto.5.10}}</pre>
+                {% for st in sto %}
+                <tr>
+                    <td>{{st.15 |date:"d.m.y H:i"}}</td>
+                    <td>{{st.21}}</td>
+                    <td>{{st.20}}</td>
+                    <td>{{st.19}}</td>
+                    <td>{{st.20}}</td>
+                    <td>{{st.22}}</td>
+                </tr>
+                {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}
