@@ -18,7 +18,7 @@ Pygments==2.4.2
 pyodbc==4.0.27
 PyPDF2==1.26.0
 pytz==2019.2
-reportlab==3.5.26
+reportlab==3.5.55
 six==1.12.0
 sqlparse==0.2.4
 terminaltables==3.1.0
